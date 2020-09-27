@@ -13068,6 +13068,8 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
+}div#notebook-container{
+  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   div.cell {
     display: block;
@@ -13113,8 +13115,7 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Python World Map Geovisualization Dashboard using COVID19 Data</strong></p>
 
@@ -13122,156 +13123,35 @@ div#notebook {
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">folium</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">requests</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">mimetypes</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">http.client</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="p">;</span>
-<span class="kn">from</span> <span class="nn">folium.plugins</span> <span class="k">import</span> <span class="n">HeatMap</span><span class="p">;</span>
-<span class="kn">from</span> <span class="nn">pandas.io.json</span> <span class="k">import</span> <span class="n">json_normalize</span><span class="p">;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">conn</span><span class="o">=</span><span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPSConnection</span><span class="p">(</span><span class="s2">&quot;api.covid19api.com&quot;</span><span class="p">);</span>
-<span class="n">payload</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
-<span class="n">headers</span><span class="o">=</span><span class="p">{};</span>
-<span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;/summary&quot;</span><span class="p">,</span><span class="n">payload</span><span class="p">,</span><span class="n">headers</span><span class="p">);</span>
-<span class="n">res</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">();</span>
-<span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">covid1</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-<span class="c1"># print(data)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">covid1</span><span class="p">[</span><span class="s1">&#39;Countries&#39;</span><span class="p">],</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">covid1</span><span class="p">[</span><span class="s1">&#39;Countries&#39;</span><span class="p">]);</span>
-<span class="c1"># df</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">covid2</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CountryCode&#39;</span><span class="p">,</span><span class="s1">&#39;Slug&#39;</span><span class="p">,</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span><span class="s1">&#39;Premium&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-<span class="c1"># covid2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">tiles</span><span class="o">=</span><span class="s2">&quot;Stamen Terrain&quot;</span><span class="p">,</span> <span class="n">min_zoom</span><span class="o">=</span><span class="mf">1.5</span><span class="p">);</span>
-<span class="c1"># m;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://raw.githubusercontent.com/python-visualization/folium/master/examples/data&#39;</span><span class="p">;</span>
-<span class="n">country_shapes</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{url}</span><span class="s1">/world-countries.json&#39;</span><span class="p">;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">folium</span><span class="o">.</span><span class="n">Choropleth</span><span class="p">(</span>
-    <span class="n">geo_data</span><span class="o">=</span><span class="n">country_shapes</span><span class="p">,</span>
-    <span class="n">min_zoom</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Covid-19&#39;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">covid2</span><span class="p">,</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Country&#39;</span><span class="p">,</span><span class="s1">&#39;TotalConfirmed&#39;</span><span class="p">],</span>
-    <span class="n">key_on</span><span class="o">=</span><span class="s1">&#39;feature.properties.name&#39;</span><span class="p">,</span>
-    <span class="n">fill_color</span><span class="o">=</span><span class="s1">&#39;OrRd&#39;</span><span class="p">,</span>
-    <span class="n">nan_fill_color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
-    <span class="n">legend_name</span><span class="o">=</span><span class="s1">&#39;Total Confirmed Covid Cases&#39;</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[9]:</div>
-
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13285,93 +13165,29 @@ div#notebook {
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">covid2</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">covid2</span><span class="p">[</span><span class="s1">&#39;TotalConfirmed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;Total Confirmed:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">));</span>
-<span class="n">covid2</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">covid2</span><span class="p">[</span><span class="s1">&#39;TotalRecovered&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;Total Recovered:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">));</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">coordinates</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/VinitaSilaparasetty/covid-map/master/country-coordinates-world.csv&#39;</span><span class="p">);</span>
-<span class="c1"># coordinates</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">covid_final</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">covid2</span><span class="p">,</span><span class="n">coordinates</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;Country&#39;</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plotDot</span><span class="p">(</span><span class="n">point</span><span class="p">):</span>
-    <span class="n">folium</span><span class="o">.</span><span class="n">CircleMarker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span><span class="n">point</span><span class="o">.</span><span class="n">longitude</span><span class="p">],</span>
-                       <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                       <span class="n">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                       <span class="n">popup</span><span class="o">=</span><span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">Country</span><span class="p">,</span><span class="n">point</span><span class="o">.</span><span class="n">TotalConfirmed</span><span class="p">,</span><span class="n">point</span><span class="o">.</span><span class="n">TotalRecovered</span><span class="p">],</span>
-                       <span class="n">fill_color</span><span class="o">=</span><span class="s1">&#39;#000000&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
-    
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Total-confirmed-COVID19-cases">Total confirmed COVID19 cases<a class="anchor-link" href="#Total-confirmed-COVID19-cases">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">covid_final</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">plotDot</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">m</span><span class="o">.</span><span class="n">fit_bounds</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">());</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[14]:</div>
-
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13385,105 +13201,32 @@ div#notebook {
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m1</span><span class="o">=</span><span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;StamenToner&#39;</span><span class="p">,</span><span class="n">min_zoom</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
-<span class="c1"># m1;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">deaths</span><span class="o">=</span><span class="n">covid_final</span><span class="p">[</span><span class="s1">&#39;TotalDeaths&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lat</span><span class="o">=</span><span class="n">covid_final</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lon</span><span class="o">=</span><span class="n">covid_final</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m1</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">HeatMap</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span><span class="n">lon</span><span class="p">,</span><span class="n">deaths</span><span class="p">),</span><span class="n">radius</span><span class="o">=</span><span class="mi">0</span><span class="p">));</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Total-Confirmed-Death-Cases">Total Confirmed Death Cases<a class="anchor-link" href="#Total-Confirmed-Death-Cases">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plotDot</span><span class="p">(</span><span class="n">point</span><span class="p">):</span>
-    <span class="n">folium</span><span class="o">.</span><span class="n">CircleMarker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span><span class="n">point</span><span class="o">.</span><span class="n">longitude</span><span class="p">],</span>
-                       <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                       <span class="n">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                       <span class="n">popup</span><span class="o">=</span><span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">Country</span><span class="p">,</span><span class="n">point</span><span class="o">.</span><span class="n">TotalDeaths</span><span class="p">],</span>
-                       <span class="n">fill_color</span><span class="o">=</span><span class="s1">&#39;#000000&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
-<span class="n">covid_final</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">plotDot</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">m1</span><span class="o">.</span><span class="n">fit_bounds</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">());</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt output_prompt">Out[20]:</div>
-
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
